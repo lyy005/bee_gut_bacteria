@@ -62,7 +62,9 @@ This document is a walkthrough of the methods and codes for comparative analysis
     # note that the ortholog.all.protein.fasta is from step 2 ortholog assignment
     python run_dbcan.py ortholog.all.protein.fasta protein --out_dir output --dia_cpu 30 --hmm_cpu 30 --tf_cpu 30 --dia_cpu 30 --hotpep_cpu 30
 
-## 2 - Ortholog assignment
+## 2 - Ortholog assignment and tree building
+
+### 2.1 - Ortholog assignment
     # the create external genome file with path to each genome db (details here: https://merenlab.org/software/anvio/help/main/artifacts/external-genomes/)
     anvi-gen-genomes-storage -e external-genomes.txt -o GGENOMES.db
     
@@ -77,7 +79,47 @@ This document is a walkthrough of the methods and codes for comparative analysis
     anvi-script-add-default-collection -p GGENOMES/G_genomes-PAN.db
     anvi-summarize -p GGENOMES/G_genomes-PAN.db -g GGENOMES.db -C DEFAULT -o PAN_SUMMARY
     
+### 2.2 - Phylogenetic tree construction
+For Snodgrassella:
+       
+    /PATH_TO_IQ_TREE/iqtree-2.1.2-Linux/bin/iqtree2 -s concate.list.fasta -o Kingella_denitrificans_NA,Neisseria_meningitidis_NA -T AUTO -B 1000 
+
+For Gilliamella: 
     
+    /PATH_TO_IQ_TREE/iqtree-2.1.2-Linux/bin/iqtree2 -s outgroups_concate.list.fasta -o Frischella_Ac13_Acerana,Frischella_DSM104328_Amellifera,Frischella_ESL0167_Amellifera,Frischella_PEB0191_Amellifera,Orbus_IPMB12_Zatratus,Orbus_hercynius_Sscrofa,Schmidhempelia_bombi_Bimpatiens -T 50 -B 1000
+    
+## 3 - Measuring gene flow based on PopCOGenT
+
+### 3.1 - PopCOGenT
+PopCOGenT can be installed from here: https://github.com/philarevalo/PopCOGenT
+
+Results can be downloaded from zenoda (XXX)
+
+### 3.2 - Simulation
+
+    # extract the distance information from PopCOGenT
+    cut -f 1,2,3 Gilliamella.length_bias.txt | perl -ne 'chomp; s/\t/ /; print "$_\n"; ' > RAxML_distances.dist 
+    
+    # create a list of genomes
+    less -S Gilliamella.length_bias.txt | perl -ne '@a=split; print "$a[0]\n$a[1]\n";' | sort | uniq > sample.txt
+    
+    # convert distance in column format to a Phylip distance matrix (using this script https://github.com/lyy005/conspecifix_arbovirus/blob/master/step3_conSpeciFix/simulation_master_script_v1.0_beta/RAxML2phylip.py)
+    python RAxML2phylip.py
+    
+    # make a tree based on the distance matrix using BIONJ_linux (http://www.atgc-montpellier.fr/bionj/binaries.php)
+
+    # use seq-gen to simulate sequences based on the tree without recombination
+    # GC content and sequence length are based on Snodgrassella wkB2
+    seq-gen -mGTR -l2527978 -n1 -f0.294,0.207,0.206,0.293 -of < matrix_sample.tree > simulation.fasta
+    
+    # GC content and sequence length are based on Gilliamella wkB1
+    seq-gen -mGTR -l3139412 -n1 -f0.333,0.167,0.169,0.331 -of < matrix_sample.tree > simulation.fasta 
+    
+    
+## 4- Functional enrichment for each population
+    anvi-get-enriched-functions-per-pan-group -p GGENOMES/G_genomes-PAN.db -g GGENOMES.db --category-variable AmAc_apis_apicola --annotation-source KeggGhostKoala -o funcEnrich.AmAcApisApicola_KeggGhostKoala.txt --functional-occurrence-table-output funcEnrich.AmAcApisApicola_KeggGhostKoala.frequency.txt --exclude-ungrouped
+    anvi-get-enriched-functions-per-pan-group -p GGENOMES/G_genomes-PAN.db -g GGENOMES.db --category-variable AmAc_apis_apicola --annotation-source 'IDENTITY' --include-gc-identity-as-function -o funcEnrich.AmAcApisApicola_orthologs.txt --functional-occurrence-table-output funcEnrich.AmAcApisApicola_orthologs.frequency.txt --exclude-ungrouped
+
 
 ## Citation
 
