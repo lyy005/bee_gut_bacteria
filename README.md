@@ -1,6 +1,6 @@
-# bee_gut_bacteria
+# Species formation of gut-restricted bacteria in social bees
 
-This document is a walkthrough of the methods and codes for comparative analysis of the bee gut restricted bactera, *Gilliamella* and *Snodgrassella* genomes. In the paper, we (1) annotated the genomes; (2) performed ortholog assignment, functional enrichment analysis using anvi'o; (3) constructed phylogenetic trees; and (4) measured gene flow based on PopCOGenT. Results of the analysis are available on Zenodo: 
+This document is a walkthrough of the methods and codes for comparative analysis of the bee gut restricted bactera, *Gilliamella* and *Snodgrassella* genomes. In the paper, we (1) annotated the genomes; (2) performed ortholog assignment and constructed phylogenetic trees; (3) measured gene flow based on PopCOGenT, and (4) performed functional enrichment analysis using anvi'o. Genomes and results of major steps are available on Zenodo: 
 
 ## 1 - Gene Annotation
 
@@ -59,8 +59,25 @@ This document is a walkthrough of the methods and codes for comparative analysis
     done
 
 ### 1.3 - CAZYme annotation using DBCan2
-    cat *.protein-sequences.fa > all.protein.unaligned.fasta
-    python run_dbcan.py all.protein.unaligned.fasta protein --out_dir output --dia_cpu 30 --hmm_cpu 30 --tf_cpu 30 --dia_cpu 30 --hotpep_cpu 30
+    # note that the ortholog.all.protein.fasta is from step 2 ortholog assignment
+    python run_dbcan.py ortholog.all.protein.fasta protein --out_dir output --dia_cpu 30 --hmm_cpu 30 --tf_cpu 30 --dia_cpu 30 --hotpep_cpu 30
+
+## 2 - Ortholog assignment
+    # the create external genome file with path to each genome db (details here: https://merenlab.org/software/anvio/help/main/artifacts/external-genomes/)
+    anvi-gen-genomes-storage -e external-genomes.txt -o GGENOMES.db
+    
+    # ortholog assignment
+    anvi-pan-genome -g GGENOMES.db --project-name "G_genomes" --output-dir GGENOMES --num-threads 50 --mcl-inflation 10
+    
+    # export all annotated coding sequences and protein sequences:
+    anvi-get-sequences-for-gene-clusters -p GGENOMES/G_genomes-PAN.db -g GGENOMES.db -o ortholog.all.dna.fasta --report-DNA-sequences --max-num-genes-from-each-genome 1000
+    anvi-get-sequences-for-gene-clusters -p GGENOMES/G_genomes-PAN.db -g GGENOMES.db -o ortholog.all.protein.fasta --max-num-genes-from-each-genome 1000
+    
+    # export ortholog assignment and functions in a table (these files are available on zenodo: XXXX)
+    anvi-script-add-default-collection -p GGENOMES/G_genomes-PAN.db
+    anvi-summarize -p GGENOMES/G_genomes-PAN.db -g GGENOMES.db -C DEFAULT -o PAN_SUMMARY
+    
+    
 
 ## Citation
 
