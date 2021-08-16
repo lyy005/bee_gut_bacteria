@@ -6,7 +6,7 @@ This document is a walkthrough of the methods and codes for comparative analysis
 
 ### 1.1 - Annotation using anvi'o db
 
-    # Genomes can be download from Zenodo
+    # Genomes can be download from Zenodo (XXX)
     # Install anvio version 7  
     # Make a list of genome names    
     ls *.fna | perl -ne '@a=split/\./; print "$a[0]\n";' > fna.name.list 
@@ -75,7 +75,7 @@ This document is a walkthrough of the methods and codes for comparative analysis
     anvi-get-sequences-for-gene-clusters -p GGENOMES/G_genomes-PAN.db -g GGENOMES.db -o ortholog.all.dna.fasta --report-DNA-sequences --max-num-genes-from-each-genome 1000
     anvi-get-sequences-for-gene-clusters -p GGENOMES/G_genomes-PAN.db -g GGENOMES.db -o ortholog.all.protein.fasta --max-num-genes-from-each-genome 1000
     
-    # export ortholog assignment and functions in a table (these files are available on zenodo: XXXX)
+    # export ortholog assignment and functions in a table (these files are available on Zenodo: XXXX)
     anvi-script-add-default-collection -p GGENOMES/G_genomes-PAN.db
     anvi-summarize -p GGENOMES/G_genomes-PAN.db -g GGENOMES.db -C DEFAULT -o PAN_SUMMARY
     
@@ -93,7 +93,7 @@ For Gilliamella:
 ### 3.1 - PopCOGenT
 PopCOGenT can be installed from here: https://github.com/philarevalo/PopCOGenT
 
-Results can be downloaded from zenoda (XXX)
+Results can be downloaded from Zenodo (XXX)
 
 ### 3.2 - Simulation
 
