@@ -52,7 +52,7 @@ This document is a walkthrough of the methods and codes for comparative analysis
     
 ### 1.2 - CRISPR annotation using CRISPRCasFinder
 
-    cat cat fna.name.list | while read i | while read i
+    cat fna.name.list | while read i | while read i
     do 
     echo $i
     #singularity exec -B $PWD CrisprCasFinder.simg perl /usr/local/CRISPRCasFinder/CRISPRCasFinder.pl -so /usr/local/CRISPRCasFinder/sel392v2.so -cf /usr/local/CRISPRCasFinder/CasFinder-2.0.3 -drpt /usr/local/CRISPRCasFinder/supplementary_files/repeatDirection.tsv -rpts /usr/local/CRISPRCasFinder/supplementary_files/Repeat_List.csv -cas -def G -out ./crispr_out/$i -in $i\.fa -cpuMacSyFinder 8 1> ./crispr_out/$i.1.log 2> ./crispr_out/$i.2.log 
