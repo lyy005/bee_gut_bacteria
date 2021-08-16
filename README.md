@@ -116,7 +116,7 @@ Results can be downloaded from zenoda (XXX)
     seq-gen -mGTR -l3139412 -n1 -f0.333,0.167,0.169,0.331 -of < matrix_sample.tree > simulation.fasta 
     
     
-## 4- Functional enrichment for each population
+## 4 - Functional enrichment for each population using anvi'o
     anvi-get-enriched-functions-per-pan-group -p GGENOMES/G_genomes-PAN.db -g GGENOMES.db --category-variable AmAc_apis_apicola --annotation-source KeggGhostKoala -o funcEnrich.AmAcApisApicola_KeggGhostKoala.txt --functional-occurrence-table-output funcEnrich.AmAcApisApicola_KeggGhostKoala.frequency.txt --exclude-ungrouped
     anvi-get-enriched-functions-per-pan-group -p GGENOMES/G_genomes-PAN.db -g GGENOMES.db --category-variable AmAc_apis_apicola --annotation-source 'IDENTITY' --include-gc-identity-as-function -o funcEnrich.AmAcApisApicola_orthologs.txt --functional-occurrence-table-output funcEnrich.AmAcApisApicola_orthologs.frequency.txt --exclude-ungrouped
 
