@@ -122,7 +122,7 @@ Results can be downloaded from Zenodo (XXX)
     
 ## 5 - Assign *Snodgrassella* genes to essential or beneficial
 
-AmB_shared_genes.list is the list of genes only shared by A. mellifera- and Bombus-derived Snodgrassella genomes. Apis_shared_genes.list is the list of genes only shared by A. mellifera- and Bombus-derived Snodgrassella genomes. 
+AmB_shared_genes.list is the list of genes only shared by *A. mellifera*- and *Bombus*-derived *Snodgrassella* genomes. Apis_shared_genes.list is the list of genes only shared by *A. mellifera*- and other *Apis*-derived *Snodgrassella* genomes. 
 
 ### 5.1 - Essential genes: 
     # extract cds sequences based on gene IDs from Powell et al. 2016 PNAS https://doi.org/10.1073/pnas.1610856113
