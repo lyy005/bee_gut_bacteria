@@ -119,6 +119,10 @@ Results can be downloaded from Zenodo (XXX)
 ## 4 - Functional enrichment for each population using anvi'o
     anvi-get-enriched-functions-per-pan-group -p GGENOMES/G_genomes-PAN.db -g GGENOMES.db --category-variable AmAc_apis_apicola --annotation-source KeggGhostKoala -o funcEnrich.AmAcApisApicola_KeggGhostKoala.txt --functional-occurrence-table-output funcEnrich.AmAcApisApicola_KeggGhostKoala.frequency.txt --exclude-ungrouped
     anvi-get-enriched-functions-per-pan-group -p GGENOMES/G_genomes-PAN.db -g GGENOMES.db --category-variable AmAc_apis_apicola --annotation-source 'IDENTITY' --include-gc-identity-as-function -o funcEnrich.AmAcApisApicola_orthologs.txt --functional-occurrence-table-output funcEnrich.AmAcApisApicola_orthologs.frequency.txt --exclude-ungrouped
+    
+## 5 - Assign *Snodgrassella* genes to essential or beneficial
+    # Essential genes: 
+    
 
 
 ## Citation
