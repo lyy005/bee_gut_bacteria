@@ -1,12 +1,12 @@
 # Species formation of gut-restricted bacteria in social bees
 
-This document is a walkthrough of the methods and code for comparative analysis of the bee gut restricted bacteria, *Gilliamella* and *Snodgrassella* genomes. In the paper, we (1) annotated the genomes; (2) performed ortholog assignment and constructed phylogenetic trees; (3) measured gene flow based on PopCOGenT, and (4) performed functional enrichment analysis using anvi'o. Genomes and results of major steps are available on Zenodo: 
+This document is a walkthrough of the methods and code for comparative analysis of the bee gut restricted bacteria, *Gilliamella* and *Snodgrassella* genomes. In the paper, we (1) annotated the genomes; (2) performed ortholog assignment and constructed phylogenetic trees; (3) measured gene flow based on PopCOGenT, and (4) performed functional enrichment analysis using anvi'o. Genomes and results of major steps are available on Zenodo: https://doi.org/10.5281/zenodo.5209528
 
 ## 1 - Gene Annotation
 
 ### 1.1 - Annotation using anvi'o db
 
-    # Genomes can be download from Zenodo (XXX)
+    # Genomes can be download from Zenodo https://doi.org/10.5281/zenodo.5209528
     # Install anvio version 7  
     # Make a list of genome names    
     ls *.fna | perl -ne '@a=split/\./; print "$a[0]\n";' > fna.name.list 
@@ -75,16 +75,16 @@ This document is a walkthrough of the methods and code for comparative analysis 
     anvi-get-sequences-for-gene-clusters -p GGENOMES/G_genomes-PAN.db -g GGENOMES.db -o ortholog.all.dna.fasta --report-DNA-sequences --max-num-genes-from-each-genome 1000
     anvi-get-sequences-for-gene-clusters -p GGENOMES/G_genomes-PAN.db -g GGENOMES.db -o ortholog.all.protein.fasta --max-num-genes-from-each-genome 1000
     
-    # export ortholog assignment and functions in a table (these files are available on Zenodo: XXXX)
+    # export ortholog assignment and functions in a table (these files are available on Zenodo: https://doi.org/10.5281/zenodo.5209528)
     anvi-script-add-default-collection -p GGENOMES/G_genomes-PAN.db
     anvi-summarize -p GGENOMES/G_genomes-PAN.db -g GGENOMES.db -C DEFAULT -o PAN_SUMMARY
     
 ### 2.2 - Phylogenetic tree construction
-For Snodgrassella:
+For *Snodgrassella*:
        
     /PATH_TO_IQ_TREE/iqtree-2.1.2-Linux/bin/iqtree2 -s concate.list.fasta -o Kingella_denitrificans_NA,Neisseria_meningitidis_NA -T AUTO -B 1000 
 
-For Gilliamella: 
+For *Gilliamella*: 
     
     /PATH_TO_IQ_TREE/iqtree-2.1.2-Linux/bin/iqtree2 -s outgroups_concate.list.fasta -o Frischella_Ac13_Acerana,Frischella_DSM104328_Amellifera,Frischella_ESL0167_Amellifera,Frischella_PEB0191_Amellifera,Orbus_IPMB12_Zatratus,Orbus_hercynius_Sscrofa,Schmidhempelia_bombi_Bimpatiens -T 50 -B 1000
     
@@ -93,7 +93,7 @@ For Gilliamella:
 ### 3.1 - PopCOGenT
 PopCOGenT can be installed from here: https://github.com/philarevalo/PopCOGenT
 
-Results can be downloaded from Zenodo (XXX)
+Results can be downloaded from Zenodo (https://doi.org/10.5281/zenodo.5209528)
 
 ### 3.2 - Simulation
 
