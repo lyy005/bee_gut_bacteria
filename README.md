@@ -140,6 +140,8 @@ AmB_shared_genes.list is the list of genes only shared by *A. mellifera*- and *B
     # combine the gene functions
     perl prep_for_heatmap_v2_essential.pl S_wkB2_Amellifera.GC_geneID_powellID.essential_list ortholog.table.col.sort powellID_essential.heatmap.input 
     
+    # the useful output with gene family and functional information is: S_wkB2_Amellifera.GC_geneID_powellID.essential_list
+    
 ### 5.2 - Beneficial genes: 
     # extract cds sequences based on gene IDs from Powell et al. 2016 PNAS https://doi.org/10.1073/pnas.1610856113
     perl pick_sequences_on_list_v2.pl GCF_000600005.1_ASM60000v1_cds_from_genomic.fna gene_list_beneficial.txt gene_list_beneficial.fasta
@@ -155,6 +157,8 @@ AmB_shared_genes.list is the list of genes only shared by *A. mellifera*- and *B
     
     # combine the gene functions
     perl prep_for_heatmap_v2_beneficial.pl S_wkB2_Amellifera.GC_geneID_powellID.beneficial_list ortholog.table.col.sort powellID_beneficial.heatmap.input 
+    
+    # the useful output with gene family and functional information is: S_wkB2_Amellifera.GC_geneID_powellID.beneficial_list
 
 
 
