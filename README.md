@@ -121,8 +121,41 @@ Results can be downloaded from Zenodo (XXX)
     anvi-get-enriched-functions-per-pan-group -p GGENOMES/G_genomes-PAN.db -g GGENOMES.db --category-variable AmAc_apis_apicola --annotation-source 'IDENTITY' --include-gc-identity-as-function -o funcEnrich.AmAcApisApicola_orthologs.txt --functional-occurrence-table-output funcEnrich.AmAcApisApicola_orthologs.frequency.txt --exclude-ungrouped
     
 ## 5 - Assign *Snodgrassella* genes to essential or beneficial
-    # Essential genes: 
+
+AmB_shared_genes.list is the list of genes only shared by A. mellifera- and Bombus-derived Snodgrassella genomes. Apis_shared_genes.list is the list of genes only shared by A. mellifera- and Bombus-derived Snodgrassella genomes. 
+
+### 5.1 - Essential genes: 
+    # extract cds sequences based on gene IDs from Powell et al. 2016 PNAS https://doi.org/10.1073/pnas.1610856113
+    perl pick_sequences_on_list_v2.pl GCF_000600005.1_ASM60000v1_cds_from_genomic.fna gene_list_essential.txt gene_list_essential.fasta
     
+    # BLAST annotated wkB2 genes in this study to the genes from NCBI
+    blastn -db gene_list_essential.fasta -query S_wkB2_Amellifera.fasta -out blast_essential.out -evalue 1e-10 -outfmt "6 qlen slen qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore" -num_alignments 1 -perc_identity 99
+    
+    # removed short fragments in the alignment
+    awk '($6 > 88){print}' blast_essential.out > blast_essential.out.filter_88bp
+    
+    # combine the gene IDs and the essential gene list
+    perl combine_GC_geneID_powellID.pl S_wkB2_Amellifera.GC_geneID.list blast_essential.out.filter_88bp S_wkB2_Amellifera.GC_geneID_powellID.essential_list
+    
+    # combine the gene functions
+    perl prep_for_heatmap_v2_essential.pl S_wkB2_Amellifera.GC_geneID_powellID.essential_list ortholog.table.col.sort powellID_essential.heatmap.input 
+    
+### 5.2 - Beneficial genes: 
+    # extract cds sequences based on gene IDs from Powell et al. 2016 PNAS https://doi.org/10.1073/pnas.1610856113
+    perl pick_sequences_on_list_v2.pl GCF_000600005.1_ASM60000v1_cds_from_genomic.fna gene_list_beneficial.txt gene_list_beneficial.fasta
+    
+    # BLAST annotated wkB2 genes in this study to the genes from NCBI
+    blastn -db gene_list_beneficial.fasta -query S_wkB2_Amellifera.fasta -out blast_beneficial.out -evalue 1e-10 -outfmt "6 qlen slen qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore" -num_alignments 1 -perc_identity 99
+    
+    # removed short fragments in the alignment
+    awk '($6 > 88){print}' blast_beneficial.out > blast_beneficial.out.filter_88bp
+    
+    # combine the gene IDs and the beneficial gene list
+    perl combine_GC_geneID_powellID.pl S_wkB2_Amellifera.GC_geneID.list blast_beneficial.out.filter_88bp S_wkB2_Amellifera.GC_geneID_powellID.beneficial_list
+    
+    # combine the gene functions
+    perl prep_for_heatmap_v2_beneficial.pl S_wkB2_Amellifera.GC_geneID_powellID.beneficial_list ortholog.table.col.sort powellID_beneficial.heatmap.input 
+
 
 
 ## Citation
