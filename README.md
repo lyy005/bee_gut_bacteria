@@ -1,4 +1,4 @@
-# Species formation of gut-restricted bacteria in social bees
+# Species divergence in gut-restricted bacteria of social bees
 
 This document is a walkthrough of the methods and code for comparative analysis of the bee gut restricted bacteria, *Gilliamella* and *Snodgrassella* genomes. In the paper, we (1) annotated the genomes; (2) performed ortholog assignment and constructed phylogenetic trees; (3) measured gene flow based on PopCOGenT, and (4) performed functional enrichment analysis using anvi'o. Genomes and results of major steps are available on Zenodo: https://doi.org/10.5281/zenodo.5209528
 
